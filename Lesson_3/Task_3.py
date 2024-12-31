@@ -1,10 +1,8 @@
 list_1 = [1, 2, 3, 4, 5, 6]
-#list_1 = [1, 2, 3]
-#list_1 = [1, 2, 3, 4, 5]
-#list_1 = [1]
-#list_1 = []
-if len(list_1) == 0:
-    print([[], []])
+# list_1 = [1, 2, 3]
+# list_1 = [1, 2, 3, 4, 5]
+# list_1 = [1]
+# list_1 = []
 
 middle_index = (len(list_1) + 1) // 2
 
