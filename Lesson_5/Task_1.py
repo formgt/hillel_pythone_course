@@ -1,34 +1,41 @@
-import re
 import keyword
-
-pattern = re.compile(r'^(?!.*__)[a-z_][a-z0-9_]*$')
 
 
 def is_valid_variable(name: str) -> bool:
     if not name:
         return False
+
     if name in keyword.kwlist:
         return False
-    return bool(pattern.match(name))
+
+    if set(name) == {'_'}:
+        return len(name) == 1
+
+    if name[0].isdigit():
+        return False
+
+    if any(ch.isupper() for ch in name):
+        return False
+
+    if not all(ch.islower() or ch.isdigit() or ch == '_' for ch in name):
+        return False
+
+    return True
 
 
 tests = [
+    "",
     "_",
     "__",
     "___",
-    "x",
-    "get_value",
-    "get value",
-    "get!value",
-    "some_super_puper_value",
-    "Get_value",
-    "get_Value",
-    "getValue",
-    "3m",
     "m3",
-    "assert",
-    "assert_exception",
+    "some__name",
+    "3name",
+    "Name",
+    "a-b",
+    "import",
+    "__var_name",
 ]
 
-for test_str in tests:
-    print(f"{test_str} => {is_valid_variable(test_str)}")
+for t in tests:
+    print(f"{t!r:15} => {is_valid_variable(t)}")
