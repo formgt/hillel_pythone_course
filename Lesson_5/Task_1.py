@@ -1,6 +1,5 @@
 import keyword
 
-
 def is_valid_variable(name: str) -> bool:
     if not name:
         return False
@@ -20,7 +19,14 @@ def is_valid_variable(name: str) -> bool:
     if not all(ch.islower() or ch.isdigit() or ch == '_' for ch in name):
         return False
 
+    if "__" in name:
+        if not (name.startswith("__") and len(name) > 2):
+            return False
+        if "__" in name[2:]:
+            return False
+
     return True
+
 
 
 tests = [
@@ -35,7 +41,13 @@ tests = [
     "a-b",
     "import",
     "__var_name",
+    "___var_name",
+    "__var__name",
+    "___var__name",
+    "within_name__name",
+    "within__name",
+    "within___name"
 ]
 
 for t in tests:
-    print(f"{t!r:15} => {is_valid_variable(t)}")
+    print(f"{t!r:20} => {is_valid_variable(t)}")
